@@ -201,28 +201,32 @@ def binary_activation(net):
 
 
 
-def train_neural_network(learning_rate, epochs, data_x, data_t):
+def update_weights_and_biases
+
+
+
+def train_neural_network(epochs, data_x, data_t, learning_rate=1):
     #TODO: add shuffling option
     #TODO: add other learning rules
 
     weights = np.zeros((NUMBER_OF_BITS_PER_LETTER,))
     biases = np.zeros((NUMBER_OF_CLASSES, ))
 
-    weights_and_biases_didnt_changed = False
+    old_weights = np.zeros((NUMBER_OF_BITS_PER_LETTER,))
+    old_biases = np.zeros((NUMBER_OF_CLASSES,))
 
     for epoch in range(epochs):
-        while (weights_and_biases_didnt_changed == False):
 
-            for pattern_idx in range(NUMBER_OF_PATTERNS):
-                net = biases + np.dot(weights, data_x[pattern_idx])
-                y_out = bipolar_activation(net)
+        for pattern_idx in range(NUMBER_OF_PATTERNS):
+            net = biases + np.dot(weights, data_x[pattern_idx])
+            y_out = bipolar_activation(net)
 
-                if (y_out != data_t[pattern_idx]):
-                    weights, biases = update_weights_and_biases(weights, biases, learning_rate, data_t[pattern_idx], data_x[pattern_idx])
-                else:
-                    continue
+            if (y_out != data_t[pattern_idx]):
+                weights, biases = update_weights_and_biases(weights, biases, learning_rate, data_t[pattern_idx], data_x[pattern_idx])
+            else:
+                continue
 
-            old_weights = weights
-            old_biases = biases
+        if (weights == old_weights and biases == old_biases):
+            break
 
 
