@@ -60,49 +60,80 @@ def prepare_dataset(method):
 
 
 def bipolar_activation(net):
-    for i in net:
-        if i < 0:
-            net[i] = -1
+    for idx in range(NUMBER_OF_CLASSES):
+        if net[idx] < 0:
+            net[idx] = -1
         else:
-            net[i] = 1
+            net[idx] = 1
+    return net
 
 def binary_activation(net):
-    for i in net:
-        if i < 0:
-            net[i] = 0
+    for idx in range(NUMBER_OF_CLASSES):
+        if net[idx] < 0:
+            net[idx] = 0
         else:
-            net[i] = 1
+            net[idx] = 1
+    return net
+
+def  update_weights_and_biases(learning_rule, weights, biases, learning_rate, data_input, data_target):
+    """
+
+    :param learning_rule:
+    :param weights:
+    :param biases:
+    :param learning_rate:
+    :param data_input:
+    :param data_target:
+    :return:
+    """
+    if (learning_rule == Learning_rules.PERCEPTRON):
+        weights += learning_rate * data_target * data_input #TODO: change with cross product
+
+        biases += learning_rate * data_target
+
+    elif (learning_rule == Learning_rules.DELTA):
+        pass
+
+    elif (learning_rule == Learning_rules.HEBB):
+        pass
+
+    return weights, biases
+
+def train_neural_network(learning_rule, epochs, data_inputs, data_targets, learning_rate=1):
+    #TODO: add shuffling option
+    #TODO: add other learning rules
+
+    weights = np.zeros((NUMBER_OF_BITS_PER_LETTER * NUMBER_OF_CLASSES,))
+    biases = np.zeros((NUMBER_OF_CLASSES, ))
+
+    old_weights = np.zeros((NUMBER_OF_BITS_PER_LETTER,))
+    old_biases = np.zeros((NUMBER_OF_CLASSES,))
+
+    for epoch in range(epochs):
+
+        old_weights = weights
+        old_biases = biases
+
+        for pattern_idx in range(NUMBER_OF_LETTERS_PER_FONT * NUMBER_OF_FONTS):
+            net = biases + np.dot(weights, data_inputs[pattern_idx])
+            y_out = bipolar_activation(net)
+
+            if ((y_out != data_targets[pattern_idx % 7]).any()):
+                weights, biases = update_weights_and_biases(Learning_rules.PERCEPTRON, weights, biases, learning_rate, data_inputs[pattern_idx], data_targets[pattern_idx % 7])
+            else:
+                continue
+
+        # if ((weights == old_weights).any() and (biases == old_biases).any()):
+        #     return weights, biases
+
+    return weights, biases
 
 
+data_inputs, data_targets = prepare_dataset(Encode_methods.BIPOLAR)
 
-# def update_weights_and_biases:
-    #TODO: from here
+weights, biases = train_neural_network(1, 100, data_inputs, data_targets, 1)
+
+print(weights)
+print(biases)
 
 
-
-# def train_neural_network(epochs, data_x, data_t, learning_rate=1):
-#     #TODO: add shuffling option
-#     #TODO: add other learning rules
-#
-#     weights = np.zeros((NUMBER_OF_BITS_PER_LETTER,))
-#     biases = np.zeros((NUMBER_OF_CLASSES, ))
-#
-#     old_weights = np.zeros((NUMBER_OF_BITS_PER_LETTER,))
-#     old_biases = np.zeros((NUMBER_OF_CLASSES,))
-#
-#     for epoch in range(epochs):
-#
-#         for pattern_idx in range(NUMBER_OF_PATTERNS):
-#             net = biases + np.dot(weights, data_x[pattern_idx])
-#             y_out = bipolar_activation(net)
-#
-#             if (y_out != data_t[pattern_idx]):
-#                 weights, biases = update_weights_and_biases(weights, biases, learning_rate, data_t[pattern_idx], data_x[pattern_idx])
-#             else:
-#                 continue
-#
-#         if (weights == old_weights and biases == old_biases):
-#             break
-
-inp, out = prepare_dataset(Encode_methods.BIPOLAR)
-print(inp)

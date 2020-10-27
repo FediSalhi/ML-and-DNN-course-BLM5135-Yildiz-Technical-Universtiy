@@ -15,6 +15,7 @@ class Encode_methods(Enum):
 class Learning_rules(Enum):
     PERCEPTRON = 1
     DELTA = 2
+    HEBB = 3
     #TODO: add other learning rules here
 
 
