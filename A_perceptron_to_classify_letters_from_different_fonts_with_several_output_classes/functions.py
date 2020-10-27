@@ -201,7 +201,8 @@ def binary_activation(net):
 
 
 
-def update_weights_and_biases
+def update_weights_and_biases:
+    #TODO: from here
 
 
 
