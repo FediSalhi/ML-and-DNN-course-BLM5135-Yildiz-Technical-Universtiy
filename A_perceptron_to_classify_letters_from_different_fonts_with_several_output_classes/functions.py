@@ -75,6 +75,34 @@ def binary_activation(net):
             net[idx] = 1
     return net
 
+def matrix_product(V1, V2):
+
+    #TODO: not well written, but it works
+
+    """
+
+    :param V1:
+    :param V2:
+    :return:
+    """
+    V1 = V1.reshape(-1, 1)
+    V2 = V2.reshape(1, -1)
+
+    l1 = V1.shape[0]
+    c1 = V1.shape[1]
+
+    l2 = V2.shape[0]
+    c2 = V2.shape[1]
+
+    V1_cross_V2 = np.zeros((l1, c2))
+
+    for line in range(l1):
+        for column in range(c2):
+            V1_cross_V2[line, column] = V1[line, 0] * V2[0, column]
+
+    return V1_cross_V2
+
+
 def  update_weights_and_biases(learning_rule, weights, biases, learning_rate, data_input, data_target):
     """
 
@@ -88,6 +116,8 @@ def  update_weights_and_biases(learning_rule, weights, biases, learning_rate, da
     """
     if (learning_rule == Learning_rules.PERCEPTRON):
         weights += learning_rate * data_target * data_input #TODO: change with cross product
+
+        np.array
 
         biases += learning_rate * data_target
 
@@ -129,11 +159,14 @@ def train_neural_network(learning_rule, epochs, data_inputs, data_targets, learn
     return weights, biases
 
 
-data_inputs, data_targets = prepare_dataset(Encode_methods.BIPOLAR)
+# data_inputs, data_targets = prepare_dataset(Encode_methods.BIPOLAR)
+#
+# weights, biases = train_neural_network(1, 100, data_inputs, data_targets, 1)
+#
+# print(weights)
+# print(biases)
 
-weights, biases = train_neural_network(1, 100, data_inputs, data_targets, 1)
-
-print(weights)
-print(biases)
+x = cross_product(np.array([1,2,3]), np.array([6,1,9]))
+print(x)
 
 
