@@ -109,42 +109,38 @@ def  multiply_vectors(V1, V2):
 
 
 
-def  update_weights_and_biases(learning_rule, weights, biases, learning_rate, data_input, data_target):
+def  update_weights_and_biases(learning_rule, learning_rate, b_old, w_old, target_j, x):
     """
 
     :param learning_rule:
-    :param weights:
-    :param biases:
     :param learning_rate:
-    :param data_input:
-    :param data_target:
+    :param b_old:
+    :param w_old:
+    :param target_j: scaler
+    :param x: vector representation of one letter
     :return:
     """
+
     if (learning_rule == Learning_rules.PERCEPTRON):
-
-        for output in range(NUMBER_OF_CLASSES):
-
+        b_new = b_old + target_j
 
 
 
 
 
-
-
-
-        t_multiply_x = matrix_multiplication(data_target.reshape(7, 1), data_input.reshape(1, 63))
-
-        weights += learning_rate * np.transpose(t_multiply_x)
-
-        biases = np.add(biases, (learning_rate * data_target).reshape(7,1))
-
-    elif (learning_rule == Learning_rules.DELTA):
-        pass
-
-    elif (learning_rule == Learning_rules.HEBB):
-        pass
-
-    return weights, biases
+    #     t_multiply_x = matrix_multiplication(data_target.reshape(7, 1), data_input.reshape(1, 63))
+    #
+    #     weights += learning_rate * np.transpose(t_multiply_x)
+    #
+    #     biases = np.add(biases, (learning_rate * data_target).reshape(7,1))
+    #
+    # elif (learning_rule == Learning_rules.DELTA):
+    #     pass
+    #
+    # elif (learning_rule == Learning_rules.HEBB):
+    #     pass
+    #
+    # return weights, biases
 
 def train_neural_network(learning_rule, epochs, data_inputs, data_targets, learning_rate=1):
     #TODO: add shuffling option
@@ -170,15 +166,19 @@ def train_neural_network(learning_rule, epochs, data_inputs, data_targets, learn
                 yj = activate_bipolar(net)
                 activated_output.append(yj)
 
-            target_j = data_targets[pattern_idx % 7]
+            target_j = data_targets[pattern_idx % 7] # target_j --> shape = (7,)
 
            #TODO: here
             # Update biases and weights
-            for output_idx in range(NUMBER_OF_CLASSES):
-                if (target_j[output_idx] != activated_output[output_idx]):
-                    w_old = weights[:, output_idx]
-                    b_old = biases[output_idx]
-                    b_new, w_new = update_weights_and_biases(Learning_rules.PERCEPTRON, learning_rate, b_old, w_old, target_j, x, )
+            if (~np.equal(target_j, activated_output)):
+                w_old = weights[:, output_idx]
+                b_old = biases[output_idx]
+                b_new, w_new = update_weights_and_biases(Learning_rules.PERCEPTRON, learning_rate, b_old, w_old, target_j, x)
+
+
+
+
+
 
             if (~np.array_equal(y_out, data_targets[pattern_idx % 7].reshape(7,1))):
                 weights, biases = update_weights_and_biases(Learning_rules.PERCEPTRON, weights, biases, learning_rate, data_inputs[pattern_idx], data_targets[pattern_idx % 7])
