@@ -1,6 +1,6 @@
 ################ imports ################
 import numpy as np
-from global_vars import *
+from constants import *
 import copy
 #########################################
 
@@ -130,8 +130,8 @@ def  update_weights_and_biases(learning_rule, learning_rate, bj_old, wj_old, tar
     """
 
     if (learning_rule == Learning_rules.PERCEPTRON):
-        bj_new = bj_old + target_j
-        wj_new = wj_old + target_j * input_vector
+        bj_new = bj_old + learning_rate * target_j
+        wj_new = wj_old + learning_rate * target_j * input_vector
     else:
         bj_new = bj_old
         wj_new = wj_old
@@ -174,7 +174,7 @@ def compare_matrices(M1, M2):
     else:
         return False
 
-def train_neural_network(learning_rule, epochs, data_inputs, data_targets, learning_rate=1):
+def train_neural_network(learning_rule, data_inputs, data_targets, learning_rate=0.1):
     """
 
     :param learning_rule:
@@ -225,11 +225,6 @@ def train_neural_network(learning_rule, epochs, data_inputs, data_targets, learn
                 biases[output_i] = bj_new
 
             # stop condition
-
-            print(epochs)
-            print(weights)
-            print(old_weights)
-
             if (compare_matrices(weights, old_weights) == True):
                 stop_condition = True
             else:
@@ -248,26 +243,6 @@ def get_prediction(weight, biases, input_vector):
 
 
 
-
-
-
-data_inputs, data_targets = prepare_dataset(Encode_methods.BIPOLAR)
-
-weights, biases = train_neural_network(1, 100, data_inputs, data_targets, 1)
-
-x = get_prediction(weights, biases, np.array(D_FONT_1_BIPOLAR))
-print(x)
-
-#
-# print(weights.shape)
-# print(biases.shape)
-#
-# print(weights)
-# print(biases)
-#
-#
-#
-# a = np.array([1,2])
 
 
 
