@@ -34,7 +34,7 @@ if __name__ == '__main__':
             train_model_command_is_valid = True
             print("training model ...")
             data_inputs, data_targets = prepare_dataset(encoding_method)
-            weights, biases, epochs, training_duration = train_neural_network(LEARNING_RULE, data_inputs, data_targets, LEARNING_RATE)
+            weights, biases, epochs, training_duration = train_neural_network(LEARNING_RULE, encoding_method, data_inputs, data_targets, LEARNING_RATE)
             print("The model is successfully trained.")
         elif (start_training_confirmation_command == 'No'):
             train_model_command_is_valid = True
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         else:
             print("You didn't choose a valid encoding method, please try agian !")
 
-
+    evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method) #TODO: implement this function
 
     prediction = get_prediction(weights, biases, np.array(K_FONT_1_BIPOLAR))
     print(prediction)

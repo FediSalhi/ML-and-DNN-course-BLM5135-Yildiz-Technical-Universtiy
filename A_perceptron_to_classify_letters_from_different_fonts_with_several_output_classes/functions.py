@@ -178,7 +178,7 @@ def compare_matrices(M1, M2):
     else:
         return False
 
-def train_neural_network(learning_rule, data_inputs, data_targets, learning_rate=0.1):
+def train_neural_network(learning_rule, encoding_method, data_inputs, data_targets, learning_rate=0.1):
     """
 
     :param learning_rule:
@@ -211,12 +211,13 @@ def train_neural_network(learning_rule, data_inputs, data_targets, learning_rate
                 wj = weights[:, output_idx] # shape (63,1)
                 bj = biases[output_idx]  # scaler
                 net = compute_net(input_vector, wj, bj) #implement compute net
-                yj = activate_bipolar(net)
+                if (encoding_method == Encode_methods.BIPOLAR):
+                    yj = activate_bipolar(net)
+                elif (encoding_method == Encode_methods.BINARY):
+                    yj = activate_binary(net)
                 activated_output.append(yj)
 
-           #TODO: here
             # Update biases and weights
-
             for output_i in range(NUMBER_OF_CLASSES):
                 if (activated_output[output_i] != target_vector[output_i]):
                     wj_old = weights[:, output_i] # vector (63,)
@@ -245,7 +246,7 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     :param weights:
     :param biases:
     :param epochs:
-    :return:
+    :return: general binary accuracy, binary accuracy for every letter,
     """
     if (encoding_method == Encode_methods.BIPOLAR):
 
@@ -276,6 +277,41 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
                            K_TARGET_BINARY]
 
     model_predictions = []
+    class_A_false_positives = 0
+    class_A_false_negatives = 0
+    class_A_true_positives = 0
+    class_A_true_negatives = 0
+
+    class_B_false_positives = 0
+    class_B_false_negatives = 0
+    class_B_true_positives = 0
+    class_B_true_negatives = 0
+
+    class_C_false_positives = 0
+    class_C_false_negatives = 0
+    class_C_true_positives = 0
+    class_C_true_negatives = 0
+
+    class_D_false_positives = 0
+    class_D_false_negatives = 0
+    class_D_true_positives = 0
+    class_D_true_negatives = 0
+
+    class_E_false_positives = 0
+    class_E_false_negatives = 0
+    class_E_true_positives = 0
+    class_E_true_negatives = 0
+
+    class_J_false_positives = 0
+    class_J_false_negatives = 0
+    class_J_true_positives = 0
+    class_J_true_negatives = 0
+
+    class_K_false_positives = 0
+    class_K_false_negatives = 0
+    class_K_true_positives = 0
+    class_K_true_negatives = 0
+
 
 
 
