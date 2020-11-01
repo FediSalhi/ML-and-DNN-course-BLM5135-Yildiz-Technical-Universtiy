@@ -27,14 +27,17 @@ def prepare_dataset(method):
                             B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR,
                             K_TARGET_BIPOLAR]
 
-    # letters_list_bipolar = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
-    #                         J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY,
-    #                         D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY,
-    #                         B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY,
-    #                         K_FONT_1_BINARY] #TODO: complete these variables
+    letters_list_bipolar = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
+                            J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY,
+                            D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY,
+                            B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY,
+                            K_FONT_1_BINARY]
 
     targets_list_binary = [A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY,
-                            J_TARGET_BINARY, K_TARGET_BINARY]
+                           J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY,
+                           D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY,
+                           B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY,
+                           K_TARGET_BINARY]
 
 
     if (method == Encode_methods.BIPOLAR):
@@ -230,7 +233,50 @@ def train_neural_network(learning_rule, data_inputs, data_targets, learning_rate
             else:
                 old_weights = copy.copy(weights)
                 old_biases = copy.copy(biases)
-    return weights, biases
+    return weights, biases, epochs
+
+def evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method):
+    """
+
+    :param weights:
+    :param biases:
+    :param epochs:
+    :return:
+    """
+    if (encoding_method == Encode_methods.BIPOLAR):
+
+        test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
+                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR,
+                            D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR, J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR,
+                            B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR, J_FONT_1_BIPOLAR,
+                            K_FONT_1_BIPOLAR]
+
+        test_dataset_targets = [A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR,
+                            J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR,
+                            D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR,
+                            B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR,
+                            K_TARGET_BIPOLAR]
+
+    elif (encoding_method == Encode_methods.BINARY):
+
+        test_dataset_inputs = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
+                            J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY,
+                            D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY,
+                            B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY,
+                            K_FONT_1_BINARY]
+
+        test_dataset_targets = [A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY,
+                           J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY,
+                           D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY,
+                           B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY,
+                           K_TARGET_BINARY]
+
+    model_predictions = []
+
+
+
+
+
 
 
 def get_prediction(weight, biases, input_vector):
