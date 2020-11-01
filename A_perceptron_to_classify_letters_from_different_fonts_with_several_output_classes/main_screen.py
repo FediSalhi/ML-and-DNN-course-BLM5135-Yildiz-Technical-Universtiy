@@ -31,9 +31,8 @@ def show_user_guide():
     *                                                                                                                                                 *
     *  1- Choose the letters encoding method by answering either "Binary" or "Bipolar".                                                               *
     *  2- Start training, by answering "Yes".                                                                                                         *
-    *  3- Evaluate the trained model by answering "Yes", once the training is finished.                                                               *
+    *  3- Once the training is finished, evaluation summary will be given.                                                                            *
     *  4- Get a prediction from the model by writing the letter and its font. Full list of letters is available at (change me)                        *
-    *                                                                                                                                                 *
     *                                                                                                                                                 *
     ***************************************************************************************************************************************************    
         """)
