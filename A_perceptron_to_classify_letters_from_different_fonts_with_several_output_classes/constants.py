@@ -14,8 +14,8 @@ class Encode_methods(Enum):
 
 class Learning_rules(Enum):
     PERCEPTRON = 1
-    DELTA = 2
-    HEBB = 3
+    DELTA = 2 # not implemented yet
+    HEBB = 3 # not implemented yet
 
 ################################################## general parameters ##################################################
 NUMBER_OF_LETTERS_PER_FONT = 7

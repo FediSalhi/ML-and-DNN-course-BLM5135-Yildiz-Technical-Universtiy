@@ -1,9 +1,13 @@
 ################################################## imports #############################################################
 from constants import *
 from functions import *
+from main_screen import *
 ########################################################################################################################
 
 if __name__ == '__main__':
+
+    show_main_screen()
+
 
     data_inputs, data_targets = prepare_dataset(LETTERS_ENCODING_METHOD)
     weights, biases = train_neural_network(LEARNING_RULE, data_inputs, data_targets, LEARNING_RATE)
