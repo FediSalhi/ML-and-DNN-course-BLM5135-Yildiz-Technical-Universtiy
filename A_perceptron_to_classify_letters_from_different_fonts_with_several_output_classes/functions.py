@@ -2,6 +2,7 @@
 import numpy as np
 from constants import *
 import copy
+import time
 #########################################
 
 def prepare_dataset(method):
@@ -196,6 +197,7 @@ def train_neural_network(learning_rule, data_inputs, data_targets, learning_rate
     stop_condition = False
     epochs = 0
 
+    training_start_time = time.time()
     while (stop_condition == False):
         epochs += 1
         for sample_letter_idx in range(DATASET_TOTAL_NUMBER_OF_LETTERS):
@@ -233,7 +235,9 @@ def train_neural_network(learning_rule, data_inputs, data_targets, learning_rate
             else:
                 old_weights = copy.copy(weights)
                 old_biases = copy.copy(biases)
-    return weights, biases, epochs
+    training_end_time = time.time()
+    training_duration = training_end_time - training_start_time
+    return weights, biases, epochs, training_duration
 
 def evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method):
     """

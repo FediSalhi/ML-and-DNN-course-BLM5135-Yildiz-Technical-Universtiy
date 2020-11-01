@@ -34,7 +34,7 @@ if __name__ == '__main__':
             train_model_command_is_valid = True
             print("training model ...")
             data_inputs, data_targets = prepare_dataset(encoding_method)
-            weights, biases, epochs = train_neural_network(LEARNING_RULE, data_inputs, data_targets, LEARNING_RATE)
+            weights, biases, epochs, training_duration = train_neural_network(LEARNING_RULE, data_inputs, data_targets, LEARNING_RATE)
             print("The model is successfully trained.")
         elif (start_training_confirmation_command == 'No'):
             train_model_command_is_valid = True
