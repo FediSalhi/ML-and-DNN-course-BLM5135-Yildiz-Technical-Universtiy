@@ -24,6 +24,18 @@ DATASET_TOTAL_NUMBER_OF_LETTERS = NUMBER_OF_LETTERS_PER_FONT * NUMBER_OF_FONTS
 NUMBER_OF_BITS_PER_LETTER = 63
 NUMBER_OF_CLASSES = 7 # A, B, C, D, E, J, K classes
 
+CLASS_A_INDEX = 0
+CLASS_B_INDEX = 1
+CLASS_C_INDEX = 2
+CLASS_D_INDEX = 3
+CLASS_E_INDEX = 4
+CLASS_J_INDEX = 5
+CLASS_K_INDEX = 6
+
+################################################## test constants ##################################################
+TEST_DATASET_TOTAL_NUMBER_OF_LETTERS = 21
+
+
 ################################################## training parameters #################################################
 LEARNING_RATE = 1
 LEARNING_RULE = Learning_rules.PERCEPTRON
@@ -42,6 +54,7 @@ A_FONT_1_BIPOLAR = [-1, -1,  1,  1, -1, -1, -1,
                     -1,  1, -1, -1, -1,  1, -1,
                     -1,  1, -1, -1, -1,  1, -1,
                      1,  1,  1, -1,  1,  1,  1]
+
 
 B_FONT_1_BIPOLAR = [ 1,  1,  1,  1,  1,  1, -1,
                     -1,  1, -1, -1, -1, -1,  1,

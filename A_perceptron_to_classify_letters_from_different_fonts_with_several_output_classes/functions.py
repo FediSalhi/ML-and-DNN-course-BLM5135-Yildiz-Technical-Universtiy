@@ -312,7 +312,24 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     class_K_true_positives = 0
     class_K_true_negatives = 0
 
+    for input_vector_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        prediction_all_classes = get_prediction(weights, biases, test_dataset_inputs[input_vector_idx])
+        model_predictions.append(prediction_all_classes)
 
+    model_predictions = np.array(model_predictions)
+
+    # class A evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_A_INDEX] == 1):
+            class_A_true_positives +=1
+
+
+    # class B evaluation
+    # class C evaluation
+    # class D evaluation
+    # class E evaluation
+    # class J evaluation
+    # class K evaluation
 
 
 
@@ -321,6 +338,7 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
 
 def get_prediction(weight, biases, input_vector):
     preds = []
+    input_vector = np.array(input_vector)
     for output_idx in range(NUMBER_OF_CLASSES):
         net = compute_net(input_vector, weight[:,output_idx], biases[output_idx])
         prediction = activate_bipolar(net)
