@@ -23,7 +23,7 @@ if __name__ == '__main__':
             encoding_method = Encode_methods.BIPOLAR
             encoding_method_command_is_valid = True
         else:
-            print("You didn't choose a valid encoding method, please try agian !")
+            print("You didn't choose a valid encoding method, please try agian!")
 
 
 
