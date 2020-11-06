@@ -313,7 +313,10 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     class_K_true_negatives = 0
 
     for input_vector_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
-        prediction_all_classes = get_prediction(weights, biases, test_dataset_inputs[input_vector_idx])
+        if (encoding_method == Encode_methods.BIPOLAR):
+            prediction_all_classes = get_prediction_bipolar(weights, biases, test_dataset_inputs[input_vector_idx])
+        elif (encoding_method == Encode_methods.BINARY):
+            prediction_all_classes = get_prediction_binary(weights, biases, test_dataset_inputs[input_vector_idx])
         model_predictions.append(prediction_all_classes)
 
     model_predictions = np.array(model_predictions)
@@ -395,17 +398,38 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
         elif (model_predictions[prediction_idx][CLASS_K_INDEX] == 1 and (prediction_idx != 6 or prediction_idx != 13 or prediction_idx != 20)):
             class_K_false_positives +=1
 
+    # compute accuracies
+    class_A_accuracy = (class_A_true_positives + class_A_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
+    class_B_accuracy = (class_B_true_positives + class_B_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
+    class_C_accuracy = (class_C_true_positives + class_C_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
+    class_D_accuracy = (class_D_true_positives + class_D_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
+    class_E_accuracy = (class_E_true_positives + class_E_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
+    class_J_accuracy = (class_J_true_positives + class_J_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
+    class_K_accuracy = (class_K_true_positives + class_K_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
 
+    print(class_A_accuracy)
+    print(class_B_accuracy)
+    print(class_C_accuracy)
+    print(class_D_accuracy)
+    print(class_E_accuracy)
+    print(class_J_accuracy)
+    print(class_K_accuracy)
 
-
-
-
-def get_prediction(weight, biases, input_vector):
+def get_prediction_bipolar(weight, biases, input_vector):
     preds = []
     input_vector = np.array(input_vector)
     for output_idx in range(NUMBER_OF_CLASSES):
         net = compute_net(input_vector, weight[:,output_idx], biases[output_idx])
         prediction = activate_bipolar(net)
+        preds.append(prediction)
+    return preds
+
+def get_prediction_binary(weight, biases, input_vector):
+    preds = []
+    input_vector = np.array(input_vector)
+    for output_idx in range(NUMBER_OF_CLASSES):
+        net = compute_net(input_vector, weight[:,output_idx], biases[output_idx])
+        prediction = activate_binary(net)
         preds.append(prediction)
     return preds
 
