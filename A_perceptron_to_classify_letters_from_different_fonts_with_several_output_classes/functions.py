@@ -322,28 +322,78 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
         if (model_predictions[prediction_idx][CLASS_A_INDEX] == 1 and (prediction_idx == 0 or prediction_idx == 7 or prediction_idx == 14)):
             class_A_true_positives +=1
-        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx != 0 or prediction_idx != 7 or prediction_idx != 14)):
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] != 1 and (prediction_idx != 0 or prediction_idx != 7 or prediction_idx != 14)):
             class_A_true_negatives += 1
-        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx == 0 or prediction_idx == 7 or prediction_idx == 14)):
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] != 1 and (prediction_idx == 0 or prediction_idx == 7 or prediction_idx == 14)):
             class_A_false_negatives +=1
         elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 1 and (prediction_idx != 0 or prediction_idx != 7 or prediction_idx != 14)):
-            class_A_false_positives
+            class_A_false_positives +=1
 
     # class B evaluation
     for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
         if (model_predictions[prediction_idx][CLASS_B_INDEX] == 1 and (prediction_idx == 1 or prediction_idx == 8 or prediction_idx == 15)):
             class_B_true_positives +=1
-        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx != 1 or prediction_idx != 8 or prediction_idx != 15)):
+        elif (model_predictions[prediction_idx][CLASS_B_INDEX] != 1 and (prediction_idx != 1 or prediction_idx != 8 or prediction_idx != 15)):
             class_B_true_negatives += 1
-        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx == 1 or prediction_idx == 8 or prediction_idx == 15)):
+        elif (model_predictions[prediction_idx][CLASS_B_INDEX] != 1 and (prediction_idx == 1 or prediction_idx == 8 or prediction_idx == 15)):
             class_B_false_negatives +=1
-        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 1 and (prediction_idx != 1 or prediction_idx != 8 or prediction_idx != 15)):
-            class_B_false_positives
+        elif (model_predictions[prediction_idx][CLASS_B_INDEX] == 1 and (prediction_idx != 1 or prediction_idx != 8 or prediction_idx != 15)):
+            class_B_false_positives +=1
+
     # class C evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_C_INDEX] == 1 and (prediction_idx == 2 or prediction_idx == 9 or prediction_idx == 16)):
+            class_C_true_positives +=1
+        elif (model_predictions[prediction_idx][CLASS_C_INDEX] != 1 and (prediction_idx != 2 or prediction_idx != 9 or prediction_idx != 16)):
+            class_C_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_C_INDEX] != 1 and (prediction_idx == 2 or prediction_idx == 9 or prediction_idx == 16)):
+            class_C_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_C_INDEX] == 1 and (prediction_idx != 2 or prediction_idx != 9 or prediction_idx != 16)):
+            class_C_false_positives +=1
+
     # class D evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_D_INDEX] == 1 and (prediction_idx == 3 or prediction_idx == 10 or prediction_idx == 17)):
+            class_D_true_positives +=1
+        elif (model_predictions[prediction_idx][CLASS_D_INDEX] != 1 and (prediction_idx != 3 or prediction_idx != 10 or prediction_idx != 17)):
+            class_D_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_D_INDEX] != 1 and (prediction_idx == 3 or prediction_idx == 10 or prediction_idx == 17)):
+            class_D_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_D_INDEX] == 1 and (prediction_idx != 3 or prediction_idx != 10 or prediction_idx != 17)):
+            class_D_false_positives +=1
+
     # class E evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_E_INDEX] == 1 and (prediction_idx == 4 or prediction_idx == 11 or prediction_idx == 18)):
+            class_E_true_positives +=1
+        elif (model_predictions[prediction_idx][CLASS_E_INDEX] != 1 and (prediction_idx != 4 or prediction_idx != 11 or prediction_idx != 18)):
+            class_E_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_E_INDEX] != 1 and (prediction_idx == 4 or prediction_idx == 11 or prediction_idx == 18)):
+            class_E_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_E_INDEX] == 1 and (prediction_idx != 4 or prediction_idx != 11 or prediction_idx != 18)):
+            class_E_false_positives +=1
+
     # class J evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_J_INDEX] == 1 and (prediction_idx == 5 or prediction_idx == 12 or prediction_idx == 19)):
+            class_J_true_positives +=1
+        elif (model_predictions[prediction_idx][CLASS_J_INDEX] != 1 and (prediction_idx != 5 or prediction_idx != 12 or prediction_idx != 19)):
+            class_J_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_J_INDEX] != 1 and (prediction_idx == 5 or prediction_idx == 12 or prediction_idx == 19)):
+            class_J_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_J_INDEX] == 1 and (prediction_idx != 5 or prediction_idx != 12 or prediction_idx != 19)):
+            class_J_false_positives +=1
+
     # class K evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_K_INDEX] == 1 and (prediction_idx == 6 or prediction_idx == 13 or prediction_idx == 20)):
+            class_K_true_positives +=1
+        elif (model_predictions[prediction_idx][CLASS_K_INDEX] != 1 and (prediction_idx != 6 or prediction_idx != 13 or prediction_idx != 20)):
+            class_K_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_K_INDEX] != 1 and (prediction_idx == 6 or prediction_idx == 13 or prediction_idx == 20)):
+            class_K_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_K_INDEX] == 1 and (prediction_idx != 6 or prediction_idx != 13 or prediction_idx != 20)):
+            class_K_false_positives +=1
 
 
 
