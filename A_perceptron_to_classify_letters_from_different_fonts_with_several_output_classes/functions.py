@@ -320,11 +320,25 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
 
     # class A evaluation
     for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
-        if (model_predictions[prediction_idx][CLASS_A_INDEX] == 1):
+        if (model_predictions[prediction_idx][CLASS_A_INDEX] == 1 and (prediction_idx == 0 or prediction_idx == 7 or prediction_idx == 14)):
             class_A_true_positives +=1
-
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx != 0 or prediction_idx != 7 or prediction_idx != 14)):
+            class_A_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx == 0 or prediction_idx == 7 or prediction_idx == 14)):
+            class_A_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 1 and (prediction_idx != 0 or prediction_idx != 7 or prediction_idx != 14)):
+            class_A_false_positives
 
     # class B evaluation
+    for prediction_idx in range(TEST_DATASET_TOTAL_NUMBER_OF_LETTERS):
+        if (model_predictions[prediction_idx][CLASS_B_INDEX] == 1 and (prediction_idx == 1 or prediction_idx == 8 or prediction_idx == 15)):
+            class_B_true_positives +=1
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx != 1 or prediction_idx != 8 or prediction_idx != 15)):
+            class_B_true_negatives += 1
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 0 and (prediction_idx == 1 or prediction_idx == 8 or prediction_idx == 15)):
+            class_B_false_negatives +=1
+        elif (model_predictions[prediction_idx][CLASS_A_INDEX] == 1 and (prediction_idx != 1 or prediction_idx != 8 or prediction_idx != 15)):
+            class_B_false_positives
     # class C evaluation
     # class D evaluation
     # class E evaluation
