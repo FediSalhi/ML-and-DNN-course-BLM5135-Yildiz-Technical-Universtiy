@@ -116,7 +116,15 @@ def  multiply_vectors(V1, V2):
     assert V1.shape[0] == V2.shape[1], "X" #TODO: fill in this message
     assert V1.shape[1] == V2.shape[0], "X"
 
-    result = np.dot(V1, V2)
+    c = V1.shape[1]
+    l = c
+    sum = 0
+
+    for i in range(l):
+        res = V1[0,i] * V2[i,0]
+        sum += res
+
+    result = sum
     return result
 
 
@@ -233,6 +241,10 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
             # stop condition
             if (compare_matrices(weights, old_weights) == True):
                 stop_condition = True
+
+            # if (epochs == 8):
+            #     stop_condition = True
+
             else:
                 old_weights = copy.copy(weights)
                 old_biases = copy.copy(biases)
