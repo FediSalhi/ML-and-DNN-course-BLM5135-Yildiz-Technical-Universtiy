@@ -197,8 +197,8 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
     :return:
     """
 
-    weights = np.zeros((NUMBER_OF_BITS_PER_LETTER, NUMBER_OF_CLASSES)) # (63, 7)
-    biases = np.zeros((NUMBER_OF_CLASSES, 1))
+    weights = np.ones((NUMBER_OF_BITS_PER_LETTER, NUMBER_OF_CLASSES)) * WEIGHTS_INITIAL_VALUES_COEF # (63, 7)
+    biases = np.ones((NUMBER_OF_CLASSES, 1)) * BIASES_INITIAL_VALUES_COEF
 
     old_weights = copy.copy(weights)
     old_biases = copy.copy(biases)
@@ -250,6 +250,7 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
                 old_biases = copy.copy(biases)
     training_end_time = time.time()
     training_duration = training_end_time - training_start_time
+    print(epochs)
     return weights, biases, epochs, training_duration
 
 def evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method):

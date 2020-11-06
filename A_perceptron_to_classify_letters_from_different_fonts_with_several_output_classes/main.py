@@ -45,5 +45,5 @@ if __name__ == '__main__':
 
     evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method) #TODO: implement this function
 
-    prediction = get_prediction_bipolar(weights, biases, np.array(A_FONT_3_BIPOLAR))
+    prediction = get_prediction_bipolar(weights, biases, np.array(K_FONT_3_BIPOLAR))
     print(prediction)

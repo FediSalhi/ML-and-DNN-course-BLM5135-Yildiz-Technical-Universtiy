@@ -38,6 +38,8 @@ TEST_DATASET_TOTAL_NUMBER_OF_LETTERS = 21
 
 ################################################## training parameters #################################################
 LEARNING_RATE = 1
+WEIGHTS_INITIAL_VALUES_COEF = 1
+BIASES_INITIAL_VALUES_COEF = 1
 LEARNING_RULE = Learning_rules.PERCEPTRON
 LETTERS_ENCODING_METHOD = Encode_methods.BIPOLAR
 
