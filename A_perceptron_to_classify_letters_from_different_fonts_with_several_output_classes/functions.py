@@ -70,28 +70,28 @@ def prepare_dataset(method):
 
 
 
-def activate_bipolar(net):
+def activate_bipolar(net, threshold):
     """
 
     :param net:
     :return:
     """
-    if (net < 0):
+    if (net < threshold):
         activated_net = -1
-    elif (net > 0):
+    elif (net > threshold):
         activated_net = 1
     else:
         activated_net = 0
     return activated_net
 
 
-def activate_binary(net):
+def activate_binary(net, threshold):
     """
 
     :param net:
     :return:
     """
-    if (net <= 0):
+    if (net <= threshold):
         activated_net = 0
     else:
         activated_net = 1
@@ -212,7 +212,7 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
 
             target_vector = data_targets[sample_letter_idx]
             activated_output = [] # shape (7,)
-            input_vector = data_inputs[sample_letter_idx].reshape(1, 63) #TODO: change with constants
+            input_vector = data_inputs[sample_letter_idx].reshape(1, NUMBER_OF_BITS_PER_LETTER)
 
             # Compute activation for each output unit
             for output_idx in range(NUMBER_OF_CLASSES):
@@ -220,9 +220,9 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
                 bj = biases[output_idx]  # scaler
                 net = compute_net(input_vector, wj, bj) #implement compute net
                 if (encoding_method == Encode_methods.BIPOLAR):
-                    yj = activate_bipolar(net)
+                    yj = activate_bipolar(net, ACTIVATION_FUNCTION_THRESHOLD)
                 elif (encoding_method == Encode_methods.BINARY):
-                    yj = activate_binary(net)
+                    yj = activate_binary(net, ACTIVATION_FUNCTION_THRESHOLD)
                 activated_output.append(yj)
 
             # Update biases and weights
@@ -261,7 +261,13 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     :param epochs:
     :return: general binary accuracy, binary accuracy for every letter,
     """
+
     if (encoding_method == Encode_methods.BIPOLAR):
+        encoding = 'BIPOLAR'
+    elif (encoding_method == Encode_methods.BINARY):
+        encoding = 'BINARY'
+
+    if (encoding == 'BIPOLAR'):
 
         test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
                             J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR,
@@ -275,7 +281,7 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
                             B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR,
                             K_TARGET_BIPOLAR]
 
-    elif (encoding_method == Encode_methods.BINARY):
+    elif (encoding == 'BINARY'):
 
         test_dataset_inputs = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
                             J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY,
@@ -420,20 +426,85 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     class_J_accuracy = (class_J_true_positives + class_J_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
     class_K_accuracy = (class_K_true_positives + class_K_true_negatives) * 100 / (TEST_DATASET_TOTAL_NUMBER_OF_LETTERS)
 
-    print(class_A_accuracy)
-    print(class_B_accuracy)
-    print(class_C_accuracy)
-    print(class_D_accuracy)
-    print(class_E_accuracy)
-    print(class_J_accuracy)
-    print(class_K_accuracy)
+    training_duration_str = str(training_duration)[0:4]
+
+    # print(class_A_accuracy)
+    # print(class_B_accuracy)
+    # print(class_C_accuracy)
+    # print(class_D_accuracy)
+    # print(class_E_accuracy)
+    # print(class_J_accuracy)
+    # print(class_K_accuracy)
+
+    print("""
+    *********************************** Model Evaluation ***********************************
+    Data Encoding Method:     {}
+    Activation Function:      {} (threshold = {})
+    Learning Rule:            {}
+    Learning Rate:            {}
+    Size of Training Dataset: {} samples (letter), {} bits/sample
+    Training Time :           {} seconds
+    Number of Epochs:         {}
+    ________________________________________________________________________________________
+    Class A Accuracy :        {} %
+    Class A True Positives:   {} 
+    Class A True Negatives:   {} 
+    Class A False Positive :  {}
+    Class A False Negative:   {}
+    ________________________________________________________________________________________
+    Class B Accuracy :        {} %
+    Class B True Positives:   {}
+    Class B True Negatives:   {}
+    Class B False Positive :  {}
+    Class B False Negative:   {}
+    ________________________________________________________________________________________
+    Class C Accuracy :        {} %
+    Class C True Positives:   {}
+    Class C True Negatives:   {}
+    Class C False Positive :  {}
+    Class C False Negative:   {}
+    ________________________________________________________________________________________
+    Class D Accuracy :        {} %
+    Class D True Positives:   {}
+    Class D True Negatives:   {}
+    Class D False Positive :  {}
+    Class D False Negative:   {}
+    ________________________________________________________________________________________
+    Class E Accuracy :        {} %
+    Class E True Positives:   {}
+    Class E True Negatives:   {}
+    Class E False Positive :  {}
+    Class E False Negative:   {}
+    ________________________________________________________________________________________
+    Class J Accuracy :        {} %
+    Class J True Positives:   {}
+    Class J True Negatives:   {}
+    Class J False Positive :  {}
+    Class J False Negative:   {}
+    ________________________________________________________________________________________
+    Class K Accuracy :        {} %
+    Class K True Positives:   {}
+    Class K True Negatives:   {}
+    Class K False Positive :  {}
+    Class K False Negative:   {}
+    
+    """.format(encoding, encoding, ACTIVATION_FUNCTION_THRESHOLD,'Perceptron', LEARNING_RATE, TEST_DATASET_TOTAL_NUMBER_OF_LETTERS,
+               NUMBER_OF_BITS_PER_LETTER, training_duration_str, epochs,
+               class_A_accuracy, class_A_true_positives, class_A_true_negatives, class_A_false_positives, class_A_false_negatives,
+               class_B_accuracy, class_B_true_positives, class_B_true_negatives, class_B_false_positives, class_B_false_negatives,
+               class_C_accuracy, class_C_true_positives, class_C_true_negatives, class_C_false_positives, class_C_false_negatives,
+               class_D_accuracy, class_D_true_positives, class_D_true_negatives, class_D_false_positives, class_D_false_negatives,
+               class_E_accuracy, class_E_true_positives, class_E_true_negatives, class_E_false_positives, class_E_false_negatives,
+               class_J_accuracy, class_J_true_positives, class_J_true_negatives, class_J_false_positives, class_J_false_negatives,
+               class_K_accuracy, class_K_true_positives, class_K_true_negatives, class_K_false_positives, class_K_false_negatives))
+
 
 def get_prediction_bipolar(weight, biases, input_vector):
     preds = []
     input_vector = np.array(input_vector)
     for output_idx in range(NUMBER_OF_CLASSES):
         net = compute_net(input_vector, weight[:,output_idx], biases[output_idx])
-        prediction = activate_bipolar(net)
+        prediction = activate_bipolar(net, ACTIVATION_FUNCTION_THRESHOLD)
         preds.append(prediction)
     return preds
 
@@ -442,7 +513,7 @@ def get_prediction_binary(weight, biases, input_vector):
     input_vector = np.array(input_vector)
     for output_idx in range(NUMBER_OF_CLASSES):
         net = compute_net(input_vector, weight[:,output_idx], biases[output_idx])
-        prediction = activate_binary(net)
+        prediction = activate_binary(net, ACTIVATION_FUNCTION_THRESHOLD)
         preds.append(prediction)
     return preds
 

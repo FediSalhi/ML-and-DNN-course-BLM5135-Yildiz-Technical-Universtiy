@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
 
     while (train_model_command_is_valid == False):
-        start_training_confirmation_command = input("{} will be used to prepare the dataset and start training, continue ? (Yes/No)".format(encoding_method))
+        start_training_confirmation_command = input("{} will be used to prepare the dataset and start training, continue ? (Yes/No)".format(str(encoding_method)[15:-1]))
         if (start_training_confirmation_command == 'Yes'):
             train_model_command_is_valid = True
             print("training model ...")
@@ -43,7 +43,9 @@ if __name__ == '__main__':
         else:
             print("You didn't choose a valid encoding method, please try agian !")
 
+
+    # get a detailed evaluation of the trained model
     evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method) #TODO: implement this function
 
-    prediction = get_prediction_bipolar(weights, biases, np.array(K_FONT_3_BIPOLAR))
+    prediction = get_prediction_bipolar(weights, biases, np.array(A_FONT_1_BIPOLAR))
     print(prediction)
