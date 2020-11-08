@@ -42,7 +42,7 @@ WEIGHTS_INITIAL_VALUES_COEF = 0
 BIASES_INITIAL_VALUES_COEF = 0
 LEARNING_RULE = Learning_rules.PERCEPTRON
 LETTERS_ENCODING_METHOD = Encode_methods.BIPOLAR
-ACTIVATION_FUNCTION_THRESHOLD = 3
+ACTIVATION_FUNCTION_THRESHOLD = 0
 
 ############################################## letters definition (inputs) #############################################
 

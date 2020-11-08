@@ -8,7 +8,7 @@ def show_main_screen():
     *                             taught by Assoc. Prof. Sirma Yavuz at Yildiz Technical University, Computer Engineering department.                 *
     *                                                                                                                                                 *
     *  Full Project Repository : https://github.com/FediSalhi/ML-and-DNN-course-BLM5135-Yildiz-Technical-Universtiy/tree/main/                        *
-    *                            A_perceptron_to_classify_letters_from_different_fonts_with_several_output_classes                                    *
+    *                                                                                                                                                 *
     *                                                                                                                                                 *
     *                            For further information please refer to README.md :                                                                  *
     *                            https://github.com/FediSalhi/ML-and-DNN-course-BLM5135-Yildiz-Technical-Universtiy/blob/main/README.md               *

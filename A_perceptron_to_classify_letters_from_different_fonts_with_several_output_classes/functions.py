@@ -17,10 +17,10 @@ def prepare_dataset(method):
     data_targets = []
 
     letters_list_bipolar = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
-                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR,
-                            D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR, J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR,
-                            B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR, J_FONT_1_BIPOLAR,
-                            K_FONT_1_BIPOLAR]
+                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_2_BIPOLAR, B_FONT_2_BIPOLAR, C_FONT_2_BIPOLAR,
+                            D_FONT_2_BIPOLAR, E_FONT_2_BIPOLAR, J_FONT_2_BIPOLAR, K_FONT_2_BIPOLAR, A_FONT_3_BIPOLAR,
+                            B_FONT_3_BIPOLAR, C_FONT_3_BIPOLAR, D_FONT_3_BIPOLAR, E_FONT_3_BIPOLAR, J_FONT_3_BIPOLAR,
+                            K_FONT_3_BIPOLAR]
 
     targets_list_bipolar = [A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR,
                             J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR,
@@ -28,11 +28,11 @@ def prepare_dataset(method):
                             B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR,
                             K_TARGET_BIPOLAR]
 
-    letters_list_bipolar = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
-                            J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY,
-                            D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY,
-                            B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY,
-                            K_FONT_1_BINARY]
+    letters_list_binary = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
+                            J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_2_BINARY, B_FONT_2_BINARY, C_FONT_2_BINARY,
+                            D_FONT_2_BINARY, E_FONT_2_BINARY, J_FONT_2_BINARY, K_FONT_2_BINARY, A_FONT_3_BINARY,
+                            B_FONT_3_BINARY, C_FONT_3_BINARY, D_FONT_3_BINARY, E_FONT_3_BINARY, J_FONT_3_BINARY,
+                            K_FONT_3_BINARY]
 
     targets_list_binary = [A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY,
                            J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY,
@@ -52,19 +52,20 @@ def prepare_dataset(method):
         for target in targets_list:
             data_targets.append(target)
 
-        data_inputs = np.array(data_inputs)
-        data_targets = np.array(data_targets)
 
-    # elif (method == Encode_methods.BINARY):
-    #
-    #     letters_list = letters_list_binary
-    #     targets_list = targets_list_binary
-    #
-    #     for letter in letters_list:
-    #         data_inputs.append(letter)
-    #
-    #     for target in targets_list:
-    #         data_targets.append(target)
+    elif (method == Encode_methods.BINARY):
+
+        letters_list = letters_list_binary
+        targets_list = targets_list_binary
+
+        for letter in letters_list:
+            data_inputs.append(letter)
+
+        for target in targets_list:
+            data_targets.append(target)
+
+    data_inputs = np.array(data_inputs)
+    data_targets = np.array(data_targets)
 
     return data_inputs, data_targets
 
@@ -186,7 +187,7 @@ def compare_matrices(M1, M2):
     else:
         return False
 
-def train_neural_network(learning_rule, encoding_method, data_inputs, data_targets, learning_rate=0.1):
+def train_neural_network(learning_rule, encoding_method, data_inputs, data_targets, learning_rate):
     """
 
     :param learning_rule:
@@ -239,15 +240,16 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
                 biases[output_i] = bj_new
 
             # stop condition
-            if (compare_matrices(weights, old_weights) == True):
-                stop_condition = True
+        if (compare_matrices(weights, old_weights) == True):
+            stop_condition = True
 
-            # if (epochs == 8):
+            # if (epochs == 100):
             #     stop_condition = True
 
-            else:
-                old_weights = copy.copy(weights)
-                old_biases = copy.copy(biases)
+        else:
+            old_weights = copy.copy(weights)
+            old_biases = copy.copy(biases)
+
     training_end_time = time.time()
     training_duration = training_end_time - training_start_time
     print(epochs)
@@ -270,10 +272,10 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     if (encoding == 'BIPOLAR'):
 
         test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
-                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR,
-                            D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR, J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_1_BIPOLAR,
-                            B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR, J_FONT_1_BIPOLAR,
-                            K_FONT_1_BIPOLAR]
+                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_2_BIPOLAR, B_FONT_2_BIPOLAR, C_FONT_2_BIPOLAR,
+                            D_FONT_2_BIPOLAR, E_FONT_2_BIPOLAR, J_FONT_2_BIPOLAR, K_FONT_2_BIPOLAR, A_FONT_3_BIPOLAR,
+                            B_FONT_3_BIPOLAR, C_FONT_3_BIPOLAR, D_FONT_3_BIPOLAR, E_FONT_3_BIPOLAR, J_FONT_3_BIPOLAR,
+                            K_FONT_3_BIPOLAR]
 
         test_dataset_targets = [A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR,
                             J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR,
@@ -284,10 +286,10 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     elif (encoding == 'BINARY'):
 
         test_dataset_inputs = [A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY,
-                            J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY, B_FONT_1_BINARY, C_FONT_1_BINARY,
-                            D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_1_BINARY,
-                            B_FONT_1_BINARY, C_FONT_1_BINARY, D_FONT_1_BINARY, E_FONT_1_BINARY, J_FONT_1_BINARY,
-                            K_FONT_1_BINARY]
+                            J_FONT_1_BINARY, K_FONT_1_BINARY, A_FONT_2_BINARY, B_FONT_2_BINARY, C_FONT_2_BINARY,
+                            D_FONT_2_BINARY, E_FONT_2_BINARY, J_FONT_2_BINARY, K_FONT_2_BINARY, A_FONT_3_BINARY,
+                            B_FONT_3_BINARY, C_FONT_3_BINARY, D_FONT_3_BINARY, E_FONT_3_BINARY, J_FONT_3_BINARY,
+                            K_FONT_3_BINARY]
 
         test_dataset_targets = [A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY,
                            J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY, B_TARGET_BINARY, C_TARGET_BINARY,
