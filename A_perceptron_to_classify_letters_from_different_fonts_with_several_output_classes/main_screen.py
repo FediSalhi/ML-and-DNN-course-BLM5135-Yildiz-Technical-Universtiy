@@ -9,7 +9,6 @@ def show_main_screen():
     *                                                                                                                                                 *
     *  Full Project Repository : https://github.com/FediSalhi/ML-and-DNN-course-BLM5135-Yildiz-Technical-Universtiy/tree/main/                        *
     *                                                                                                                                                 *
-    *                                                                                                                                                 *
     *                            For further information please refer to README.md :                                                                  *
     *                            https://github.com/FediSalhi/ML-and-DNN-course-BLM5135-Yildiz-Technical-Universtiy/blob/main/README.md               *
     *                                                                                                                                                 *
@@ -29,10 +28,9 @@ def show_user_guide():
     print("""
     **************************************************************** User Guide  **********************************************************************
     *                                                                                                                                                 *
-    *  1- Choose the letters encoding method by answering either "Binary" or "Bipolar".                                                               *
+    *  1- Choose the characters encoding method by answering either "Binary" or "Bipolar".                                                            *
     *  2- Start training, by answering "Yes".                                                                                                         *
     *  3- Once the training is finished, evaluation summary will be given.                                                                            *
-    *  4- Get a prediction from the model by writing the letter and its font. Full list of letters is available at (change me)                        *
     *                                                                                                                                                 *
     ***************************************************************************************************************************************************    
         """)

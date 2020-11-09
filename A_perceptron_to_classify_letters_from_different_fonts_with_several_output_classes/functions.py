@@ -92,17 +92,17 @@ def activate_binary(net, threshold):
     :param net:
     :return:
     """
-    if (net <= threshold):
+    if (net < threshold):
         activated_net = 0
     else:
         activated_net = 1
     return activated_net
 
 
-
-def matrix_multiplication(M1, M2):
-    result = np.matmul(M1, M2)
-    return result
+#
+# def matrix_multiplication(M1, M2):
+#     result = np.matmul(M1, M2)
+#     return result
 
 def  multiply_vectors(V1, V2):
     """
