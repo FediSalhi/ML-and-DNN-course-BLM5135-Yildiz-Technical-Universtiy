@@ -7,4 +7,6 @@ def f_function(x1, x2):
     return f
 
 def f_function_grad(x1, x2):
-    grad_f
+    grad_f = [4*x1 + x2, x1 + 2*x2]
+    return grad_f
+
