@@ -8,7 +8,7 @@ from all_functions import *
 is_a_valid_point = True
 is_a_min_point = False
 k = 0
-X0 = BASKAGIC_NOKTASI
+X0 = START_POINT
 
 while (k < MAX_ITERATIONS):
     k += 1
