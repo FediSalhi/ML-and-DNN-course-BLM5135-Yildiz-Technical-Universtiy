@@ -15,7 +15,7 @@ while (k < MAX_ITERATIONS):
     if (is_a_valid_point):
         is_a_min_point = verify_min_point_or_not(X0)
     if (is_a_min_point):
-        print('{} is a minimum'.format(X0))
+        print('{} is a minimum of f(x) function'.format(X0))
         break
     else:
         # choose direciton
