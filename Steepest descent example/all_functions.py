@@ -7,4 +7,4 @@ def f_function(x1, x2):
     return f
 
 def f_function_grad(x1, x2):
-    grad_f =
+    grad_f
