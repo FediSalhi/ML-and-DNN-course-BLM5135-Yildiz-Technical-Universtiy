@@ -37,3 +37,15 @@ def verify_chosen_point(X1, X2):
 
     return chosen_point_verified
 
+def compute_direction(X):
+    direction = -f_function_grad(X[0], X[1])
+    return direction
+
+def compute_step(X):
+    """
+    constant step to simplify algorithm
+    :param X:
+    :return:
+    """
+    return MOVING_STEP
+
