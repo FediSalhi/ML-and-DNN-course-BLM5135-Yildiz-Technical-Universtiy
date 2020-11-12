@@ -41,6 +41,7 @@ def prepare_dataset(method):
                            K_TARGET_BINARY]
 
 
+
     if (method == Encode_methods.BIPOLAR):
 
         letters_list = letters_list_bipolar
@@ -273,17 +274,27 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
 
     if (encoding == 'BIPOLAR'):
 
-        test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
-                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_2_BIPOLAR, B_FONT_2_BIPOLAR, C_FONT_2_BIPOLAR,
-                            D_FONT_2_BIPOLAR, E_FONT_2_BIPOLAR, J_FONT_2_BIPOLAR, K_FONT_2_BIPOLAR, A_FONT_3_BIPOLAR,
-                            B_FONT_3_BIPOLAR, C_FONT_3_BIPOLAR, D_FONT_3_BIPOLAR, E_FONT_3_BIPOLAR, J_FONT_3_BIPOLAR,
-                            K_FONT_3_BIPOLAR]
+        # test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
+        #                     J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_2_BIPOLAR, B_FONT_2_BIPOLAR, C_FONT_2_BIPOLAR,
+        #                     D_FONT_2_BIPOLAR, E_FONT_2_BIPOLAR, J_FONT_2_BIPOLAR, K_FONT_2_BIPOLAR, A_FONT_3_BIPOLAR,
+        #                     B_FONT_3_BIPOLAR, C_FONT_3_BIPOLAR, D_FONT_3_BIPOLAR, E_FONT_3_BIPOLAR, J_FONT_3_BIPOLAR,
+        #                     K_FONT_3_BIPOLAR]
 
         test_dataset_targets = [A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR,
                             J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR,
                             D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR,
                             B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR,
                             K_TARGET_BIPOLAR]
+
+        test_dataset_inputs =  [A_FONT_1_NOISY_BIPOLAR, B_FONT_1_NOISY_BIPOLAR, C_FONT_1_NOISY_BIPOLAR,
+                                D_FONT_1_NOISY_BIPOLAR, E_FONT_1_NOISY_BIPOLAR, J_FONT_1_NOISY_BIPOLAR,
+                                K_FONT_1_NOISY_BIPOLAR, A_FONT_2_NOISY_BIPOLAR, B_FONT_2_NOISY_BIPOLAR,
+                                C_FONT_2_NOISY_BIPOLAR, D_FONT_2_NOISY_BIPOLAR, E_FONT_2_NOISY_BIPOLAR,
+                                J_FONT_2_NOISY_BIPOLAR, K_FONT_2_NOISY_BIPOLAR, A_FONT_3_NOISY_BIPOLAR,
+                                B_FONT_3_NOISY_BIPOLAR, C_FONT_3_NOISY_BIPOLAR, D_FONT_3_NOISY_BIPOLAR,
+                                E_FONT_3_NOISY_BIPOLAR, J_FONT_3_NOISY_BIPOLAR, K_FONT_3_NOISY_BIPOLAR]
+
+
 
     elif (encoding == 'BINARY'):
 
