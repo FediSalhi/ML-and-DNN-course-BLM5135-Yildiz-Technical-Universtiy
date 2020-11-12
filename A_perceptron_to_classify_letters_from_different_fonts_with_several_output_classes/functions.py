@@ -145,9 +145,11 @@ def  update_weights_and_biases(learning_rule, learning_rate, bj_old, wj_old, tar
     if (learning_rule == Learning_rules.PERCEPTRON):
         bj_new = bj_old + learning_rate * target_j
         wj_new = wj_old + learning_rate * target_j * input_vector
-    else:
-        bj_new = bj_old
-        wj_new = wj_old
+
+    elif (learning_rate == Learning_rules.DELTA):
+        net_j = compute_net(input_vector, wj_old, bj_old)
+        bj_new = bj_old + learning_rate * (target_j - net_j)
+        wj_new = wj_old + learning_rate * (target_j - net_j) * input_vector
 
     return bj_new, wj_new
 

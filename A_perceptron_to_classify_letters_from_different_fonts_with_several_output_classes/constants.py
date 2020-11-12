@@ -15,7 +15,6 @@ class Encode_methods(Enum):
 class Learning_rules(Enum):
     PERCEPTRON = 1
     DELTA = 2 # not implemented yet
-    HEBB = 3 # not implemented yet
 
 ################################################## general parameters ##################################################
 NUMBER_OF_LETTERS_PER_FONT = 7
@@ -40,7 +39,8 @@ TEST_DATASET_TOTAL_NUMBER_OF_LETTERS = 21
 LEARNING_RATE = 1
 WEIGHTS_INITIAL_VALUES_COEF = 0
 BIASES_INITIAL_VALUES_COEF = 0
-LEARNING_RULE = Learning_rules.PERCEPTRON
+# LEARNING_RULE = Learning_rules.PERCEPTRON
+LEARNING_RULE = Learning_rules.DELTA
 LETTERS_ENCODING_METHOD = Encode_methods.BIPOLAR
 ACTIVATION_FUNCTION_THRESHOLD = 0
 
