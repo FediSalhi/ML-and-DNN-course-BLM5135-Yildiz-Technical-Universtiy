@@ -7,8 +7,6 @@ import time
 
 def prepare_dataset(method):
     """
-
-    :param font_type:
     :param method:
     :return: data_inputs --> (21,63), data_targets --> (21,7)
     """
@@ -40,8 +38,6 @@ def prepare_dataset(method):
                            B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY,
                            K_TARGET_BINARY]
 
-
-
     if (method == Encode_methods.BIPOLAR):
 
         letters_list = letters_list_bipolar
@@ -70,13 +66,11 @@ def prepare_dataset(method):
 
     return data_inputs, data_targets
 
-
-
 def activate_bipolar(net, threshold):
     """
-
     :param net:
-    :return:
+    :param threshold:
+    :return: bipolar activated_net
     """
     if (net < threshold):
         activated_net = -1
@@ -86,24 +80,17 @@ def activate_bipolar(net, threshold):
         activated_net = 0
     return activated_net
 
-
 def activate_binary(net, threshold):
     """
-
     :param net:
-    :return:
+    :param threshold:
+    :return: binary activated_net
     """
     if (net < threshold):
         activated_net = 0
     else:
         activated_net = 1
     return activated_net
-
-
-#
-# def matrix_multiplication(M1, M2):
-#     result = np.matmul(M1, M2)
-#     return result
 
 def  multiply_vectors(V1, V2):
     """
@@ -113,10 +100,10 @@ def  multiply_vectors(V1, V2):
     :return: V1.V2  shape --> scaler
     """
 
-    assert np.ndim(V1) == 2, "X"
-    assert np.ndim(V2) == 2, "X"
-    assert V1.shape[0] == V2.shape[1], "X" #TODO: fill in this message
-    assert V1.shape[1] == V2.shape[0], "X"
+    assert np.ndim(V1) == 2, "Please check the dimension of first input"
+    assert np.ndim(V2) == 2, "Please check the dimension of second input"
+    assert V1.shape[0] == V2.shape[1], "Please check dimensions"
+    assert V1.shape[1] == V2.shape[0], "Please check dimensions"
 
     c = V1.shape[1]
     l = c
@@ -134,13 +121,13 @@ def  multiply_vectors(V1, V2):
 def  update_weights_and_biases(learning_rule, learning_rate, bj_old, wj_old, target_j, input_vector):
     """
 
-    :param Learning_rules:
+    :param Learning_rules: perceptron/delta
     :param learning_rate:
-    :param bj_old: sclaer
+    :param bj_old: scaler
     :param wj_old: vector (63,)
     :param target_vector: (7,)
     :param input_vector: (1,63)
-    :return:
+    :return: updated bias and weights
     """
 
     if (learning_rule == Learning_rules.PERCEPTRON):
@@ -195,8 +182,8 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
 
     :param learning_rule:
     :param epochs:
-    :param data_inputs: shape --> (21,63) 21 = total number of letters and 63 = number of bits per letter
-    :param data_targets: shape --> (21,7) 21 = total number of letters and 7 = number of classes
+    :param data_inputs: shape --> (21,63) 21 = total number of characters, 63 = number of bits per letter
+    :param data_targets: shape --> (21,7) 21 = total number of characters,  7 = number of classes
     :param learning_rate:
     :return:
     """
@@ -222,7 +209,7 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
             for output_idx in range(NUMBER_OF_CLASSES):
                 wj = weights[:, output_idx] # shape (63,1)
                 bj = biases[output_idx]  # scaler
-                net = compute_net(input_vector, wj, bj) #implement compute net
+                net = compute_net(input_vector, wj, bj)
                 if (encoding_method == Encode_methods.BIPOLAR):
                     yj = activate_bipolar(net, ACTIVATION_FUNCTION_THRESHOLD)
                 elif (encoding_method == Encode_methods.BINARY):
@@ -246,6 +233,7 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
         if (compare_matrices(weights, old_weights) == True):
             stop_condition = True
 
+            # use this if you want to the train to continue until a specific number of epochs
             # if (epochs == 100):
             #     stop_condition = True
 
@@ -255,16 +243,15 @@ def train_neural_network(learning_rule, encoding_method, data_inputs, data_targe
 
     training_end_time = time.time()
     training_duration = training_end_time - training_start_time
-    print(epochs)
+    # print(epochs)
     return weights, biases, epochs, training_duration
 
 def evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method):
     """
-
     :param weights:
     :param biases:
     :param epochs:
-    :return: general binary accuracy, binary accuracy for every letter,
+    :return:
     """
 
     if (encoding_method == Encode_methods.BIPOLAR):
@@ -274,11 +261,11 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
 
     if (encoding == 'BIPOLAR'):
 
-        # test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
-        #                     J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_2_BIPOLAR, B_FONT_2_BIPOLAR, C_FONT_2_BIPOLAR,
-        #                     D_FONT_2_BIPOLAR, E_FONT_2_BIPOLAR, J_FONT_2_BIPOLAR, K_FONT_2_BIPOLAR, A_FONT_3_BIPOLAR,
-        #                     B_FONT_3_BIPOLAR, C_FONT_3_BIPOLAR, D_FONT_3_BIPOLAR, E_FONT_3_BIPOLAR, J_FONT_3_BIPOLAR,
-        #                     K_FONT_3_BIPOLAR]
+        test_dataset_inputs = [A_FONT_1_BIPOLAR, B_FONT_1_BIPOLAR, C_FONT_1_BIPOLAR, D_FONT_1_BIPOLAR, E_FONT_1_BIPOLAR,
+                            J_FONT_1_BIPOLAR, K_FONT_1_BIPOLAR, A_FONT_2_BIPOLAR, B_FONT_2_BIPOLAR, C_FONT_2_BIPOLAR,
+                            D_FONT_2_BIPOLAR, E_FONT_2_BIPOLAR, J_FONT_2_BIPOLAR, K_FONT_2_BIPOLAR, A_FONT_3_BIPOLAR,
+                            B_FONT_3_BIPOLAR, C_FONT_3_BIPOLAR, D_FONT_3_BIPOLAR, E_FONT_3_BIPOLAR, J_FONT_3_BIPOLAR,
+                            K_FONT_3_BIPOLAR]
 
         test_dataset_targets = [A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR,
                             J_TARGET_BIPOLAR, K_TARGET_BIPOLAR, A_TARGET_BIPOLAR, B_TARGET_BIPOLAR, C_TARGET_BIPOLAR,
@@ -286,13 +273,15 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
                             B_TARGET_BIPOLAR, C_TARGET_BIPOLAR, D_TARGET_BIPOLAR, E_TARGET_BIPOLAR, J_TARGET_BIPOLAR,
                             K_TARGET_BIPOLAR]
 
-        test_dataset_inputs =  [A_FONT_1_NOISY_BIPOLAR, B_FONT_1_NOISY_BIPOLAR, C_FONT_1_NOISY_BIPOLAR,
-                                D_FONT_1_NOISY_BIPOLAR, E_FONT_1_NOISY_BIPOLAR, J_FONT_1_NOISY_BIPOLAR,
-                                K_FONT_1_NOISY_BIPOLAR, A_FONT_2_NOISY_BIPOLAR, B_FONT_2_NOISY_BIPOLAR,
-                                C_FONT_2_NOISY_BIPOLAR, D_FONT_2_NOISY_BIPOLAR, E_FONT_2_NOISY_BIPOLAR,
-                                J_FONT_2_NOISY_BIPOLAR, K_FONT_2_NOISY_BIPOLAR, A_FONT_3_NOISY_BIPOLAR,
-                                B_FONT_3_NOISY_BIPOLAR, C_FONT_3_NOISY_BIPOLAR, D_FONT_3_NOISY_BIPOLAR,
-                                E_FONT_3_NOISY_BIPOLAR, J_FONT_3_NOISY_BIPOLAR, K_FONT_3_NOISY_BIPOLAR]
+        # test_dataset_inputs =  [A_FONT_1_NOISY_BIPOLAR, B_FONT_1_NOISY_BIPOLAR, C_FONT_1_NOISY_BIPOLAR,
+        #                         D_FONT_1_NOISY_BIPOLAR, E_FONT_1_NOISY_BIPOLAR, J_FONT_1_NOISY_BIPOLAR,
+        #                         K_FONT_1_NOISY_BIPOLAR, A_FONT_2_NOISY_BIPOLAR, B_FONT_2_NOISY_BIPOLAR,
+        #                         C_FONT_2_NOISY_BIPOLAR, D_FONT_2_NOISY_BIPOLAR, E_FONT_2_NOISY_BIPOLAR,
+        #                         J_FONT_2_NOISY_BIPOLAR, K_FONT_2_NOISY_BIPOLAR, A_FONT_3_NOISY_BIPOLAR,
+        #                         B_FONT_3_NOISY_BIPOLAR, C_FONT_3_NOISY_BIPOLAR, D_FONT_3_NOISY_BIPOLAR,
+        #                         E_FONT_3_NOISY_BIPOLAR, J_FONT_3_NOISY_BIPOLAR, K_FONT_3_NOISY_BIPOLAR]
+
+
 
 
 
@@ -309,6 +298,15 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
                            D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY, K_TARGET_BINARY, A_TARGET_BINARY,
                            B_TARGET_BINARY, C_TARGET_BINARY, D_TARGET_BINARY, E_TARGET_BINARY, J_TARGET_BINARY,
                            K_TARGET_BINARY]
+
+        # test_dataset_inputs = [A_FONT_1_NOISY_BINARY, B_FONT_1_NOISY_BINARY, C_FONT_1_NOISY_BINARY,
+        #                        D_FONT_1_NOISY_BINARY, E_FONT_1_NOISY_BINARY, J_FONT_1_NOISY_BINARY,
+        #                        K_FONT_1_NOISY_BINARY, A_FONT_2_NOISY_BINARY, B_FONT_2_NOISY_BINARY,
+        #                        C_FONT_2_NOISY_BINARY, D_FONT_2_NOISY_BINARY, E_FONT_2_NOISY_BINARY,
+        #                        J_FONT_2_NOISY_BINARY, K_FONT_2_NOISY_BINARY, A_FONT_3_NOISY_BINARY,
+        #                        B_FONT_3_NOISY_BINARY, C_FONT_3_NOISY_BINARY, D_FONT_3_NOISY_BINARY,
+        #                        E_FONT_3_NOISY_BINARY, J_FONT_3_NOISY_BINARY, K_FONT_3_NOISY_BINARY]
+
 
     model_predictions = []
     class_A_false_positives = 0
@@ -443,21 +441,13 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
 
     training_duration_str = str(training_duration)[0:4]
 
-    # print(class_A_accuracy)
-    # print(class_B_accuracy)
-    # print(class_C_accuracy)
-    # print(class_D_accuracy)
-    # print(class_E_accuracy)
-    # print(class_J_accuracy)
-    # print(class_K_accuracy)
-
     print("""
-    *********************************** Model Evaluation ***********************************
+    ************************ Model Evaluation - Perceptron Learning Rule *******************
     Data Encoding Method:     {}
-    Activation Function:      {} (threshold = {})
+    Activation Function:      {} (Threshold = {})
     Learning Rule:            {}
     Learning Rate:            {}
-    Size of Training Dataset: {} samples (letter), {} bits/sample
+    Size of Training Dataset: {} samples (characters), {} datapoint/sample
     Training Time :           {} seconds
     Number of Epochs:         {}
     ________________________________________________________________________________________
@@ -503,7 +493,7 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
     Class K False Positive :  {}
     Class K False Negative:   {}
     
-    """.format(encoding, encoding, ACTIVATION_FUNCTION_THRESHOLD,'Perceptron', LEARNING_RATE, TEST_DATASET_TOTAL_NUMBER_OF_LETTERS,
+    """.format(encoding, encoding, ACTIVATION_FUNCTION_THRESHOLD,'PERCEPTRON', LEARNING_RATE, TEST_DATASET_TOTAL_NUMBER_OF_LETTERS,
                NUMBER_OF_BITS_PER_LETTER, training_duration_str, epochs,
                class_A_accuracy, class_A_true_positives, class_A_true_negatives, class_A_false_positives, class_A_false_negatives,
                class_B_accuracy, class_B_true_positives, class_B_true_negatives, class_B_false_positives, class_B_false_negatives,
@@ -512,7 +502,6 @@ def evaluate_model(weights, biases, epochs, data_inputs, training_duration, enco
                class_E_accuracy, class_E_true_positives, class_E_true_negatives, class_E_false_positives, class_E_false_negatives,
                class_J_accuracy, class_J_true_positives, class_J_true_negatives, class_J_false_positives, class_J_false_negatives,
                class_K_accuracy, class_K_true_positives, class_K_true_negatives, class_K_false_positives, class_K_false_negatives))
-
 
 def get_prediction_bipolar(weight, biases, input_vector):
     preds = []

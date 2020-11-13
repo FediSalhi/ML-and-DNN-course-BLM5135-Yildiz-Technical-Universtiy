@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
 
     # get a detailed evaluation of the trained model
-    evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method) #TODO: implement this function
+    evaluate_model(weights, biases, epochs, data_inputs, training_duration, encoding_method)
 
-    prediction = get_prediction_bipolar(weights, biases, np.array(A_FONT_1_BIPOLAR))
-    print(prediction)
+    # use this if you want get a prediction for a single character
+    # prediction = get_prediction_bipolar(weights, biases, np.array(A_FONT_1_BIPOLAR))

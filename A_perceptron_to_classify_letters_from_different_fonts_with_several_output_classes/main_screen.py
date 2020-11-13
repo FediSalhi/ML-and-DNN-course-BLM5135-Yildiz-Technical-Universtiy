@@ -2,7 +2,7 @@
 
 def show_main_screen():
     print("""
-    **************************************************** Perceptron Based Letter Recognition **********************************************************
+    **************************************************** Perceptron Based Character Recognition *******************************************************
     *                                                                                                                                                 *
     *  Brief                   :  This program was developed for "Machine Learning and Deep Neural Networks - BLM5135" course                         *
     *                             taught by Assoc. Prof. Sirma Yavuz at Yildiz Technical University, Computer Engineering department.                 *
